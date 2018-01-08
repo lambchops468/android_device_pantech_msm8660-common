@@ -102,6 +102,8 @@ service thermald /system/bin/thermald
     class late_start
     user root
     group root
+    # AZL: We have our own thermal throttling in the kernel.
+    disabled
 
 service qseecomd /system/bin/qseecomd
    class late_start
