@@ -29,13 +29,7 @@ service kickstart /system/bin/qcks l
     oneshot
     disabled
 
-# Start kickstart if csfb or svlte2a target
 on property:ro.baseband=csfb
-    wait /dev/ttyHSL1
-    mkdir /data/qcks 0770 system system
-    start kickstart
-
-on property:ro.baseband=svlte2a
     wait /dev/ttyHSL1
     mkdir /data/qcks 0770 system system
     start kickstart
@@ -46,24 +40,9 @@ service modem_link /system/bin/sh /system/etc/init.qcom.modem_links.sh
     disabled
     oneshot
 
-service dcvsd0 /system/bin/dcvsd -c 0 -f /data/misc/dcvsd/dcvsd0.conf
-    class late_start
-    user root
-    disabled
-
-service dcvsd1 /system/bin/dcvsd -c 1 -f /data/misc/dcvsd/dcvsd1.conf
-    class late_start
-    user root
-    disabled
-
 service mpdecision /system/bin/mpdecision --no_sleep --avg_comp
     class late_start
     user root
-    disabled
-
-service qosmgrd /system/bin/qosmgr /system/etc/qosmgr_rules.xml
-    user system
-    group system
     disabled
 
 service thermald /system/bin/thermald
@@ -81,10 +60,6 @@ service qseecomd /system/bin/qseecomd
 service qrngd /system/bin/qrngd -f
     class late_start
     user root
-
-on property:ro.baseband=svlte2a
-   setprop ro.config.ehrpd true
-   setprop ro.ril.svlte1x true
 
 on property:sys.radio.shutdown=true
    exec /system/bin/sh /system/etc/init.qcom.efs.sync.sh
