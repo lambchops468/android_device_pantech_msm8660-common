@@ -10,9 +10,6 @@ on fs
     # these partition flashed on the device. Failure to mount any partition in fstab file
     # results in failure to launch late-start class.
 
-    wait /dev/block/platform/msm_sdcc.1/by-num/p16
-    mount ext4 /dev/block/platform/msm_sdcc.1/by-num/p16 /cache nosuid nodev barrier=1
-
     wait /dev/block/platform/msm_sdcc.1/by-num/p15
     mount ext4 /dev/block/platform/msm_sdcc.1/by-num/p15 /persist nosuid nodev barrier=1
 
